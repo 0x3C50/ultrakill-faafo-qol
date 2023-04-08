@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
-        <AssemblyName>ExtraCommands</AssemblyName>
-        <Description>My first plugin</Description>
+        <AssemblyName>FAAFO-QOL</AssemblyName>
+        <Description>A QOL mod for "Fuck around and find out"-minded people</Description>
         <Version>1.0.0</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>

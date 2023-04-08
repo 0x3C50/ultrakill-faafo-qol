@@ -1,6 +1,19 @@
 # ULTRAKILL "Fuck around and find out" QOL
 Adds a variety of utilities for "fuck around and find out"-minded ultrakill users. Things like `teleport`, `movementSpeed`, etc.
 
+## Downloads
+[here](https://thunderstore.io/c/ultrakill/p/0x150_mods/faafo_qol/)
+
+## Building yourself
+**FIRST OFF**: This repository does **NOT** have all required libraries bundled. I explicitly left out ULTRAKILL's Assembly-CSharp.dll, since it may infringe on hakita's copyright on it. If you want to build this mod, you will have to get the assembly yourself.
+
+1. Get the Assembly-CSharp.dll file from `<ultrakill steam directory>/ULTRAKILL_Data/Managed/Assembly-CSharp.dll`
+2. Copy it into `<project root>/libs/Assembly-CSharp.dll`, create the `libs` folder if it doesn't exist
+
+After this, you can continue with the regular build process:
+1. `dotnet build`
+2. Output will be in `bin/Debug/netstandard2.1/FAAFO-QOL.dll`
+
 ## Features
 ### Cheats
 #### Invincibility
