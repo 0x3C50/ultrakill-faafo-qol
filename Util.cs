@@ -1,0 +1,83 @@
+using System.Collections.Generic;
+using JetBrains.Annotations;
+using UnityEngine;
+
+namespace ExtraCommands;
+
+public static class Util
+{
+    [CanBeNull]
+    public static HashSet<GameObject> GetAllEnemies()
+    {
+        GoreZone findObjectOfType = Object.FindObjectOfType<GoreZone>();
+        if (findObjectOfType is null)
+            // con.PrintLine("you don't seem to be in a scene where i can do that");
+            return null;
+
+        HashSet<GameObject> go = new();
+        foreach (Component f in findObjectOfType.gameObject.GetComponentsInChildren<Component>())
+            if (f.TryGetComponent(out EnemyIdentifier _))
+                go.Add(f.gameObject);
+
+        go.RemoveWhere(o => o.GetComponent<EnemyIdentifier>().dead);
+
+        return go;
+    }
+
+    public static Vector3? ParseCoordinates(string x, string y, string z, Vector3 originPoint)
+    {
+        float lx = 0, ly = 0, lz = 0;
+        float ox = 0, oy = 0, oz = 0;
+        Rigidbody rigidbody = PlayerTracker.Instance.GetRigidbody();
+        Vector3 playerPos = rigidbody.position;
+        switch (x[0])
+        {
+            case '~':
+                ox = playerPos.x;
+                x = x[1..];
+                break;
+            case '^':
+                ox = originPoint.x;
+                x = x[1..];
+                break;
+        }
+
+        switch (y[0])
+        {
+            case '~':
+                oy = playerPos.y;
+                y = y[1..];
+                break;
+            case '^':
+                oy = originPoint.y;
+                y = y[1..];
+                break;
+        }
+
+        switch (z[0])
+        {
+            case '~':
+                oz = playerPos.z;
+                z = z[1..];
+                break;
+            case '^':
+                oz = originPoint.z;
+                z = z[1..];
+                break;
+        }
+
+        if (x.Length != 0 && !float.TryParse(x, out lx)) return null;
+        if (y.Length != 0 && !float.TryParse(y, out ly)) return null;
+        if (z.Length != 0 && !float.TryParse(z, out lz)) return null;
+        return new Vector3(ox + lx, oy + ly, oz + lz);
+    }
+
+    public static float DistanceTo(this Vector3 a, Vector3 b)
+    {
+        return Mathf.Sqrt(
+            Mathf.Pow(b.x - a.x, 2) +
+            Mathf.Pow(b.y - a.y, 2) +
+            Mathf.Pow(b.z - a.z, 2)
+        );
+    }
+}
