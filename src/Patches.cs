@@ -92,11 +92,6 @@ public class Patches
             bool prev = prop.gameObject.activeSelf;
             prop.gameObject.SetActive(false); // shitty hack to postpone BossHealthBar#Awake
             BossHealthBar bhb = prop.gameObject.AddComponent<BossHealthBar>();
-            System.Console.WriteLine(hp);
-            foreach (BossBarManager.HealthLayer healthLayer in hl)
-            {
-                System.Console.WriteLine(healthLayer.health);
-            }
             bhb.healthLayers = hl;
             prop.gameObject.SetActive(prev);
         });
