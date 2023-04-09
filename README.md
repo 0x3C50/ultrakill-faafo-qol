@@ -2,7 +2,7 @@
 Adds a variety of utilities for "fuck around and find out"-minded ultrakill users. Things like `teleport`, `movementSpeed`, etc.
 
 ## Downloads
-[here](https://thunderstore.io/c/ultrakill/p/0x150_mods/faafo_qol/)
+[here](https://thunderstore.io/c/ultrakill/p/0x150_mods/FAAFO_QOL/)
 
 ## Building yourself
 **FIRST OFF**: This repository does **NOT** have all required libraries bundled. I explicitly left out ULTRAKILL's Assembly-CSharp.dll, since it may infringe on hakita's copyright on it. If you want to build this mod, you will have to get the assembly yourself.
