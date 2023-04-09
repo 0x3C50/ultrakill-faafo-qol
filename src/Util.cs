@@ -1,6 +1,12 @@
+using System;
 using System.Collections.Generic;
+using System.Reflection;
 using JetBrains.Annotations;
+using Sandbox;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace ExtraCommands;
 
@@ -79,5 +85,23 @@ public static class Util
             Mathf.Pow(b.y - a.y, 2) +
             Mathf.Pow(b.z - a.z, 2)
         );
+    }
+    
+    public static T GetFieldValue<T>(this object obj, string name) {
+        FieldInfo field = obj.GetType().GetField(name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+        return (T)field?.GetValue(obj);
+    }
+    
+    public static void CreateFloatRowLimited(this AlterMenuElements a, string name, float initialState, float min, float max, Action<float> callback)
+    {
+        GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(a.GetFieldValue<GameObject>("floatRowTemplate"), a.GetFieldValue<Transform>("container"), false);
+        gameObject.SetActive(true);
+        gameObject.GetComponentInChildren<Text>().text = name;
+        Slider componentInChildren = gameObject.GetComponentInChildren<Slider>();
+        componentInChildren.minValue = min;
+        componentInChildren.maxValue = max;
+        componentInChildren.SetValueWithoutNotify(initialState);
+        componentInChildren.onValueChanged.AddListener((UnityAction<float>) (value => callback(value)));
+        a.GetFieldValue<List<int>>("createdRows").Add(gameObject.GetInstanceID());
     }
 }

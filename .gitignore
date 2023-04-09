@@ -288,8 +288,9 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 
-.idea/*
-bin/*
-libs/*
-obj/*
+.idea
+bin
+# ultrakill's game dll - the game is paid, i dont want to put the code on github
+libs/Assembly-CSharp.dll
+obj
 thunderstore
