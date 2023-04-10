@@ -94,14 +94,23 @@ public static class Util
     
     public static void CreateFloatRowLimited(this AlterMenuElements a, string name, float initialState, float min, float max, Action<float> callback)
     {
-        GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(a.GetFieldValue<GameObject>("floatRowTemplate"), a.GetFieldValue<Transform>("container"), false);
+        GameObject gameObject = Object.Instantiate(a.GetFieldValue<GameObject>("floatRowTemplate"), a.GetFieldValue<Transform>("container"), false);
         gameObject.SetActive(true);
         gameObject.GetComponentInChildren<Text>().text = name;
         Slider componentInChildren = gameObject.GetComponentInChildren<Slider>();
         componentInChildren.minValue = min;
         componentInChildren.maxValue = max;
         componentInChildren.SetValueWithoutNotify(initialState);
-        componentInChildren.onValueChanged.AddListener((UnityAction<float>) (value => callback(value)));
+        componentInChildren.onValueChanged.AddListener(value => callback(value));
+        a.GetFieldValue<List<int>>("createdRows").Add(gameObject.GetInstanceID());
+    }
+
+    public static void CreateButtonRow(this AlterMenuElements a, string text, Action callback)
+    {
+        GameObject gameObject = Object.Instantiate(Plugin.ButtonTemplate, a.GetFieldValue<Transform>("container"), false);
+        gameObject.SetActive(true);
+        gameObject.GetComponentInChildren<Button>().onClick.AddListener(() => callback());
+        gameObject.GetComponentInChildren<Text>().text = text;
         a.GetFieldValue<List<int>>("createdRows").Add(gameObject.GetInstanceID());
     }
 }

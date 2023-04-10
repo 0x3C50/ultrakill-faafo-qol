@@ -15,12 +15,17 @@ public static class Resources
 
     public static Sprite LoadSpriteFrom(string assetName)
     {
-        Type rootType = typeof(Plugin);
-        Stream manifestResourceStream =
-            rootType.Assembly.GetManifestResourceStream($"ExtraCommands.resources.{assetName}");
-        byte[] b = S2BArr(manifestResourceStream);
+        byte[] b = S2BArr(LoadResource(assetName));
         Texture2D tex = new(1, 1);
         tex.LoadImage(b);
         return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(tex.width / 2f, tex.height / 2f));
+    }
+
+    public static Stream LoadResource(string n)
+    {
+        Type rootType = typeof(Plugin);
+        Stream manifestResourceStream =
+            rootType.Assembly.GetManifestResourceStream($"ExtraCommands.resources.{n}");
+        return manifestResourceStream;
     }
 }
