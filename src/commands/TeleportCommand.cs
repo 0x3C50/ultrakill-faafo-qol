@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using GameConsole;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace ExtraCommands.commands;
 
@@ -42,7 +43,7 @@ public class TeleportCommand : CommandRoot
 
                     Vector3 actual = coordinates.Value;
                     con.PrintLine(gameObject + " -> " + coordinates);
-                    gameObject.transform.SetPositionAndRotation(actual, gameObject.transform.rotation);
+                    TeleportObj(gameObject, actual);
                     // gameObject.transform.position.Set(actual.x, actual.y, actual.z);
                 }
             });
@@ -73,7 +74,8 @@ public class TeleportCommand : CommandRoot
 
                     Vector3 actual = coordinates.Value;
                     con.PrintLine(gameObject + " -> " + coordinates);
-                    gameObject.transform.SetPositionAndRotation(actual, gameObject.transform.rotation);
+                    TeleportObj(gameObject, actual);
+                    // gameObject.transform.SetPositionAndRotation(actual, gameObject.transform.rotation);
                     // gameObject.transform.position.Set(actual.x, actual.y, actual.z);
                 }
             });
@@ -92,6 +94,16 @@ public class TeleportCommand : CommandRoot
             transform.MovePosition(coordinates.Value);
             //transform.SetPositionAndRotation(coordinates.Value, transform.rotation);
         });
+    }
+
+    private static void TeleportObj(GameObject go, Vector3 to)
+    {
+        go.transform.SetPositionAndRotation(to, go.transform.rotation);
+        NavMeshAgent[] nmas = go.GetComponentsInChildren<NavMeshAgent>();
+        foreach (NavMeshAgent navMeshAgent in nmas)
+        {
+            navMeshAgent.Warp(to);
+        }
     }
 
     private static void PrintCoordHelp(Console con)
