@@ -4,7 +4,6 @@ using System.Reflection;
 using JetBrains.Annotations;
 using Sandbox;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
@@ -40,11 +39,11 @@ public static class Util
         {
             case '~':
                 ox = playerPos.x;
-                x = x[1..];
+                x = x.Substring(1);
                 break;
             case '^':
                 ox = originPoint.x;
-                x = x[1..];
+                x = x.Substring(1);
                 break;
         }
 
@@ -52,11 +51,11 @@ public static class Util
         {
             case '~':
                 oy = playerPos.y;
-                y = y[1..];
+                y = y.Substring(1);
                 break;
             case '^':
                 oy = originPoint.y;
-                y = y[1..];
+                y = y.Substring(1);
                 break;
         }
 
@@ -64,11 +63,11 @@ public static class Util
         {
             case '~':
                 oz = playerPos.z;
-                z = z[1..];
+                z = z.Substring(1);
                 break;
             case '^':
                 oz = originPoint.z;
-                z = z[1..];
+                z = z.Substring(1);
                 break;
         }
 
@@ -86,15 +85,19 @@ public static class Util
             Mathf.Pow(b.z - a.z, 2)
         );
     }
-    
-    public static T GetFieldValue<T>(this object obj, string name) {
-        FieldInfo field = obj.GetType().GetField(name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+
+    public static T GetFieldValue<T>(this object obj, string name)
+    {
+        FieldInfo field = obj.GetType()
+            .GetField(name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
         return (T)field?.GetValue(obj);
     }
-    
-    public static void CreateFloatRowLimited(this AlterMenuElements a, string name, float initialState, float min, float max, Action<float> callback)
+
+    public static void CreateFloatRowLimited(this AlterMenuElements a, string name, float initialState, float min,
+        float max, Action<float> callback)
     {
-        GameObject gameObject = Object.Instantiate(a.GetFieldValue<GameObject>("floatRowTemplate"), a.GetFieldValue<Transform>("container"), false);
+        GameObject gameObject = Object.Instantiate(a.GetFieldValue<GameObject>("floatRowTemplate"),
+            a.GetFieldValue<Transform>("container"), false);
         gameObject.SetActive(true);
         gameObject.GetComponentInChildren<Text>().text = name;
         Slider componentInChildren = gameObject.GetComponentInChildren<Slider>();
@@ -107,7 +110,8 @@ public static class Util
 
     public static void CreateButtonRow(this AlterMenuElements a, string text, Action callback)
     {
-        GameObject gameObject = Object.Instantiate(Plugin.ButtonTemplate, a.GetFieldValue<Transform>("container"), false);
+        GameObject gameObject =
+            Object.Instantiate(Plugin.ButtonTemplate, a.GetFieldValue<Transform>("container"), false);
         gameObject.SetActive(true);
         gameObject.GetComponentInChildren<Button>().onClick.AddListener(() => callback());
         gameObject.GetComponentInChildren<Text>().text = text;

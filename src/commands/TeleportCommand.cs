@@ -91,6 +91,7 @@ public class TeleportCommand : CommandRoot
                 con.PrintLine("Prefix ^ refers to the target's current position (yourself)");
                 return;
             }
+
             transform.MovePosition(coordinates.Value);
             //transform.SetPositionAndRotation(coordinates.Value, transform.rotation);
         });
@@ -100,10 +101,7 @@ public class TeleportCommand : CommandRoot
     {
         go.transform.SetPositionAndRotation(to, go.transform.rotation);
         NavMeshAgent[] nmas = go.GetComponentsInChildren<NavMeshAgent>();
-        foreach (NavMeshAgent navMeshAgent in nmas)
-        {
-            navMeshAgent.Warp(to);
-        }
+        foreach (NavMeshAgent navMeshAgent in nmas) navMeshAgent.Warp(to);
     }
 
     private static void PrintCoordHelp(Console con)

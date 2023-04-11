@@ -8,9 +8,6 @@ using GameConsole;
 using HarmonyLib;
 using MonoMod.Utils;
 using UnityEngine;
-using UnityEngine.UI;
-using Console = System.Console;
-using Object = UnityEngine.Object;
 
 namespace ExtraCommands;
 
@@ -31,13 +28,14 @@ public class Plugin : BaseUnityPlugin
         new InvincibilityCheat()
     };
 
-    public  static readonly Dictionary<string, Sprite> AdditionalCheatIcons = new();
+    public static readonly Dictionary<string, Sprite> AdditionalCheatIcons = new();
     private static readonly AssetBundle MainBundle = AssetBundle.LoadFromStream(Resources.LoadResource("mainbundle"));
-    public  static readonly GameObject ButtonTemplate = MainBundle.LoadAsset<GameObject>("ButtonTemplate");
+    public static readonly GameObject ButtonTemplate = MainBundle.LoadAsset<GameObject>("ButtonTemplate");
     public static ManualLogSource BpxLogger;
 
     private void Awake()
     {
+        FileLog.logPath = "/home/x150/Downloads/flog.txt";
         BpxLogger = Logger;
         Logger.LogInfo("Doing mischief...");
         AdditionalCheatIcons.Clear();
