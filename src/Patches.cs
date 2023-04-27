@@ -105,9 +105,9 @@ public class Patches
             eid.ForceGetHealth();
             float hp = eid.health; // yes this could be less than the original health, there's no fix :/
             float oneBar = hp / nOfBars;
-            BossBarManager.HealthLayer[] hl = new BossBarManager.HealthLayer[nOfBars];
+            HealthLayer[] hl = new HealthLayer[nOfBars];
             for (int i = 0; i < nOfBars; i++)
-                hl[i] = new BossBarManager.HealthLayer
+                hl[i] = new HealthLayer
                 {
                     health = oneBar
                 };
@@ -261,9 +261,9 @@ public class Patches
                     eid.ForceGetHealth();
                     float hp = eid.health; // yes this could be less than the original health, there's no fix :/
                     float oneBar = hp / nOfBars;
-                    BossBarManager.HealthLayer[] hl = new BossBarManager.HealthLayer[nOfBars];
-                    for (int i = 0; i < nOfBars; i++)
-                        hl[i] = new BossBarManager.HealthLayer
+                    HealthLayer[] hl = new HealthLayer[nOfBars];
+                    for (int i1 = 0; i1 < nOfBars; i1++)
+                        hl[i1] = new HealthLayer
                         {
                             health = oneBar
                         };

@@ -46,9 +46,7 @@ Enables you to teleport yourself to other locations or other enemies to you.
 
 Notes:
 
-- Enemies within an encounter may be buggy to teleport, because some of them appear to have a set region where they may
-  be positioned. They get reset once they leave that area
-    - Enemies outside of encounters (or teleporting enemies within their encounter zone) work fine.
+- Enemies are automatically clamped to the nearest Y position once teleported. This is a hacky bug fix from PITR, and not an issue with the mod.
 
 ## Suggestions
 
